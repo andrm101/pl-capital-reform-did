@@ -1,0 +1,7 @@
+data/processed/
+__pycache__/
+*.pyc
+.venv/
+.env
+.ipynb_checkpoints/
+.pytest_cache/

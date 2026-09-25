@@ -1,0 +1,50 @@
+city_pl,city_en,teryt_powiat,retained_capital,capital_type,new_voivodeship,voivodeship_code,pop_1998_approx_k,notes
+Białystok,Bialystok,2061,1,full,Podlaskie,20,277,
+Bydgoszcz,Bydgoszcz,0461,1,co-capital-main,Kujawsko-Pomorskie,4,386,seats_marshal_and_gov
+Gdańsk,Gdansk,2261,1,full,Pomorskie,22,462,
+Gorzów Wielkopolski,Gorzow Wlkp,0861,1,co-capital-sejm,Lubuskie,8,124,sejmik_seat
+Katowice,Katowice,2467,1,full,Śląskie,24,344,
+Kielce,Kielce,2661,1,full,Świętokrzyskie,26,213,
+Kraków,Krakow,1261,1,full,Małopolskie,12,741,
+Lublin,Lublin,0663,1,full,Lubelskie,6,354,
+Łódź,Lodz,1061,1,full,Łódzkie,10,800,
+Olsztyn,Olsztyn,2862,1,full,Warmińsko-Mazurskie,28,170,
+Opole,Opole,1661,1,full,Opolskie,16,131,
+Poznań,Poznan,3065,1,full,Wielkopolskie,30,582,
+Rzeszów,Rzeszow,1863,1,full,Podkarpackie,18,160,
+Szczecin,Szczecin,3262,1,full,Zachodniopomorskie,32,417,
+Toruń,Torun,0463,1,co-capital-sejmik,Kujawsko-Pomorskie,4,206,sejmik_seat
+Warszawa,Warsaw,1465,1,full,Mazowieckie,14,1625,
+Wrocław,Wroclaw,0264,1,full,Dolnośląskie,2,643,
+Zielona Góra,Zielona Gora,0862,1,co-capital-marshal,Lubuskie,8,118,marshal_office
+Biała Podlaska,Biala Podlaska,0661,0,demoted,Lubelskie,6,58,verify_teryt
+Bielsko-Biała,Bielsko-Biala,2461,0,demoted,Śląskie,24,180,verify_teryt
+Chełm,Chelm,0662,0,demoted,Lubelskie,6,68,verify_teryt
+Ciechanów,Ciechanow,1402,0,demoted,Mazowieckie,14,45,verify_teryt_may_not_be_grodzkiCity-powiat dissolved 1999; mapped to land powiat ciechanowski (1402).
+Częstochowa,Czestochowa,2464,0,demoted,Śląskie,24,258,verify_teryt
+Elbląg,Elblag,2861,0,demoted,Warmińsko-Mazurskie,28,130,verify_teryt
+Jelenia Góra,Jelenia Gora,0261,0,demoted,Dolnośląskie,2,93,verify_teryt
+Kalisz,Kalisz,3061,0,demoted,Wielkopolskie,30,107,verify_teryt
+Konin,Konin,3062,0,demoted,Wielkopolskie,30,82,verify_teryt
+Koszalin,Koszalin,3261,0,demoted,Zachodniopomorskie,32,110,verify_teryt
+Krosno,Krosno,1861,0,demoted,Podkarpackie,18,49,verify_teryt
+Legnica,Legnica,0262,0,demoted,Dolnośląskie,2,109,verify_teryt
+Leszno,Leszno,3063,0,demoted,Wielkopolskie,30,63,verify_teryt
+Łomża,Lomza,2062,0,demoted,Podlaskie,20,64,verify_teryt
+Nowy Sącz,Nowy Sacz,1262,0,demoted,Małopolskie,12,84,verify_teryt
+Ostrołęka,Ostroleka,1461,0,demoted,Mazowieckie,14,54,CONFLICT_WITH_CIECHANOW_verify
+Piła,Pila,3064,0,demoted,Wielkopolskie,30,76,verify_teryt
+Piotrków Trybunalski,Piotrkow Trybunalski,1062,0,demoted,Łódzkie,10,80,verify_teryt
+Płock,Plock,1462,0,demoted,Mazowieckie,14,130,verify_teryt
+Przemyśl,Przemysl,1862,0,demoted,Podkarpackie,18,69,verify_teryt
+Radom,Radom,1463,0,demoted,Mazowieckie,14,232,verify_teryt
+Siedlce,Siedlce,1464,0,demoted,Mazowieckie,14,76,verify_teryt
+Sieradz,Sieradz,1064,0,demoted,Łódzkie,10,44,verify_teryt_may_not_be_grodzki
+Skierniewice,Skierniewice,1063,0,demoted,Łódzkie,10,49,verify_teryt
+Słupsk,Slupsk,2263,0,demoted,Pomorskie,22,103,verify_teryt
+Suwałki,Suwalki,2063,0,demoted,Podlaskie,20,69,verify_teryt
+Tarnobrzeg,Tarnobrzeg,1864,0,demoted,Podkarpackie,18,51,verify_teryt
+Tarnów,Tarnow,1263,0,demoted,Małopolskie,12,121,verify_teryt
+Wałbrzych,Walbrzych,0265,0,demoted,Dolnośląskie,2,139,STRUCTURAL_BREAK_lost_grodzki_2013_restored_2019
+Włocławek,Wloclawek,0464,0,demoted,Kujawsko-Pomorskie,4,123,verify_teryt
+Zamość,Zamosc,0664,0,demoted,Lubelskie,6,68,verify_teryt

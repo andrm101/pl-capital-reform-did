@@ -1,0 +1,22 @@
+name: pl-capital-reform
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pandas=2.2.*
+  - numpy=1.26.*
+  - scipy=1.13.*
+  - matplotlib=3.9.*
+  - seaborn=0.13.*
+  - statsmodels=0.14.*
+  - scikit-learn=1.5.*
+  - pyarrow=16.*        # parquet I/O
+  - jupyterlab=4.*
+  - missingno=0.5.*
+  - pip:
+    - linearmodels==6.1   # panel DiD / TWFE with clustered SE
+    - pysyncon==0.5.*     # synthetic control (replace naive SCM in stage 06)
+    # - SparseSC            # alternative SCM; install separately if pysyncon insufficient
+    - pingouin==0.5.*     # assumption tests (normality, Levene, etc.)

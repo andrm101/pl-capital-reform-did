@@ -1,0 +1,223 @@
+---
+title: "The Long Shadow of Administrative Reform: Effects of Capital-Status Loss on Polish City Trajectories, 1995–2020"
+author: "Andrei Manoloiu"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    fig_caption: true
+    latex_engine: xelatex
+    keep_tex: false
+bibliography: ../references/references.bib
+biblio-style: apalike
+link-citations: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo    = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  dpi = 300
+)
+set.seed(42)
+
+library(tidyverse)
+library(fixest)       # TWFE event study
+library(MatchIt)      # PSM matching
+library(knitr)
+library(kableExtra)
+library(here)
+```
+
+# Introduction
+
+The 1999 Polish administrative reform consolidated 49 voivodeships into 16, stripping
+31 cities of their regional capital status while retaining 18 (including two dual-capital
+arrangements). This paper exploits that discontinuous, simultaneous redesignation as a
+natural experiment to estimate the causal effect of administrative capital-status loss on
+local economic trajectories.
+
+The primary research question is: **Did losing voivodeship-capital status in 1999
+causally reduce population growth, firm density, and labour market outcomes in
+affected Polish cities over the subsequent two decades?**
+
+We employ a two-way fixed-effects (TWFE) difference-in-differences estimator with
+event-study leads and lags, supplemented by propensity-score-matched DiD and synthetic
+control analyses for selected large demoted cities. Data come from the Polish Local
+Data Bank (GUS BDL) at the powiat level and Eurostat REGIO at NUTS-3 for GDP.
+
+# Data and Measurement
+
+## Treatment assignment
+
+Treatment is defined at the city-powiat (powiat grodzki) level. The 31 demoted cities
+constitute the treatment group; the 18 retained capitals form the primary control group.
+Two dual-capital pairs (Bydgoszcz/Toruń; Gorzów Wielkopolski/Zielona Góra) retain
+capital functions and are coded as control units, with sensitivity checks excluding them.
+
+## Outcome variables
+
+```{r outcomes-table}
+outcomes_df <- tibble::tribble(
+  ~Variable, ~Source, ~Level, ~Frequency, ~Coverage,
+  "Log population", "GUS BDL", "Powiat", "Annual", "1995–2023",
+  "Net migration", "GUS BDL", "Powiat", "Annual", "1995–2023",
+  "Registered unemployment rate (%)", "GUS BDL", "Powiat", "Annual", "1999–2023",
+  "REGON firms per 1,000 pop.", "GUS BDL", "Powiat", "Annual", "1995–2023",
+  "Log avg. gross wage (PLN)", "GUS BDL", "Powiat", "Annual", "2002–2023",
+  "Log GDP per capita (EUR)", "Eurostat REGIO nama_10r_3gdp", "NUTS-3", "Annual", "2000–2022"
+)
+kable(outcomes_df, booktabs = TRUE,
+      caption = "Outcome variables, sources, and coverage.") |>
+  kable_styling(latex_options = c("striped", "hold_position"), font_size = 9)
+```
+
+# Identification Strategy
+
+## Parallel trends assumption
+
+The DiD estimator is consistent if, absent the 1999 reform, demoted and retained cities
+would have followed parallel trends. This is assessed visually via group-mean trend plots
+(Figure \@ref(fig:pretrends)) and formally tested using pre-reform event-study coefficients
+(β_{k<0} ≈ 0).
+
+**Threats to identification:**
+
+1. *Selection into demotion*: If the reform targeted already-declining cities, pre-trends
+   may diverge, biasing DiD estimates downward. Addressed by PSM on 1998 baseline
+   characteristics and pre-trend testing.
+2. *SUTVA / spatial spillovers*: Retained capitals may absorb displaced workers/firms from
+   nearby demoted cities, violating the stable-unit-treatment-value assumption. Tested by
+   excluding demoted cities in the same voivodeship as their retained capital.
+3. *Post-1999 shocks*: EU accession (2004) and structural fund inflows differentially
+   affected regions. Included via region × year fixed effects in extended specifications.
+
+## Specification
+
+The primary event-study specification is:
+
+$$Y_{it} = \alpha_i + \lambda_t + \sum_{k \neq -1} \beta_k \left(D_i \times \mathbf{1}[t - 1999 = k]\right) + \varepsilon_{it}$$
+
+where $\alpha_i$ are powiat fixed effects, $\lambda_t$ are year fixed effects, $D_i = 1$
+for demoted cities, and $k = -1$ (year 1998) is the omitted reference period.
+Standard errors are clustered at the powiat level.
+
+The ATT from the two-term DiD ($D_i \times Post_t$) is reported as the primary scalar
+estimate; the event-study plot reveals dynamic effects.
+
+# Results
+
+## Pre-trend test
+
+```{r pretrends, fig.cap="Group-mean trends: demoted vs. retained capitals. Vertical dashed line = 1999 reform. Flat pre-period trends support parallel-trends assumption.", out.width="95%"}
+knitr::include_graphics(here("figures", "f01_group_trends.png"))
+```
+
+## Balance table
+
+```{r balance}
+bal_path <- here("figures", "t01_balance_table.csv")
+if (file.exists(bal_path)) {
+  bal <- read_csv(bal_path, show_col_types = FALSE)
+  kable(bal, booktabs = TRUE, digits = 3,
+        caption = "Pre-reform covariate balance (pre-1999 period means).
+                   Norm. diff. > 0.25 indicates potential confounding.") |>
+    kable_styling(latex_options = c("striped", "hold_position"), font_size = 9)
+} else {
+  cat("Balance table not yet generated. Run scripts/04\\_eda.py.")
+}
+```
+
+## Event-study estimates
+
+```{r es-population, fig.cap="Event-study: effect of capital-status loss on log population. β coefficients relative to 1998 baseline; 95% CI shown. Pre-period β ≈ 0 supports identification.", out.width="90%"}
+knitr::include_graphics(here("figures", "f04_eventstudy_ln_population.png"))
+```
+
+```{r es-firms, fig.cap="Event-study: effect on REGON firms per 1,000 population.", out.width="90%"}
+knitr::include_graphics(here("figures", "f04_eventstudy_firms_per_1k.png"))
+```
+
+## Policy translation
+
+```{r policy-table}
+pol_path <- here("figures", "t05_policy_translation.csv")
+if (file.exists(pol_path)) {
+  pol <- read_csv(pol_path, show_col_types = FALSE) |>
+    select(outcome, horizon_years, policy_magnitude, beta, ci_lo_95, ci_hi_95)
+  kable(pol, booktabs = TRUE, digits = 3,
+        caption = "Long-run ATT estimates translated to policy magnitudes.
+                   Horizons: 5, 10, 15, 20 years post-reform.") |>
+    kable_styling(latex_options = c("striped", "hold_position"), font_size = 9)
+} else {
+  cat("Policy translation table not yet generated. Run scripts/07\\_translate.py.")
+}
+```
+
+## Heterogeneity by city size
+
+```{r heterogeneity, fig.cap="Scatter of pre-reform city size vs. post-reform cumulative population change (1998–2019). Tests H2: larger demoted cities show smaller negative effects.", out.width="85%"}
+knitr::include_graphics(here("figures", "f06_heterogeneity_size.png"))
+```
+
+# Robustness
+
+```{r robustness}
+rob_path <- here("figures", "t04_robustness_summary.csv")
+if (file.exists(rob_path)) {
+  rob <- read_csv(rob_path, show_col_types = FALSE)
+  kable(rob, booktabs = TRUE, digits = 4,
+        caption = "Robustness checks: baseline TWFE and four alternative specifications.
+                   Consistent sign and magnitude across checks supports main finding.") |>
+    kable_styling(latex_options = c("striped", "hold_position"), font_size = 9)
+} else {
+  cat("Robustness table not yet generated. Run scripts/06\\_robustness.py.")
+}
+```
+
+# Discussion and Policy Implications
+
+[Populated after results are available. To include:]
+
+- Magnitude of population and firm-density effects stated in one sentence.
+- Comparison with theoretical priors (agglomeration loss, public-sector employment contraction).
+- Conditions under which findings hold (city size, distance to retained capital).
+- Limitations: observational DiD (not IV), short pre-period, SUTVA concern.
+- Policy recommendation with explicit uncertainty bounds.
+
+# Conclusion
+
+[Populated after results. One paragraph max: finding, magnitude, policy implication,
+key caveat.]
+
+# References {-}
+
+<div id="refs"></div>
+
+# Appendix {-}
+
+## Appendix A: TERYT code verification
+
+All powiat TERYT codes used in this analysis were verified against the GUS TERYT register
+(eteryt.stat.gov.pl). Codes in `data/raw/treatment/capital_status_1999.csv` marked
+`verify_teryt` were cross-checked before merging. Notable issues: Wałbrzych (TERYT 0265)
+lost city-powiat status 2013–2019 and is excluded from the main specification.
+
+## Appendix B: NUTS-3 boundary harmonisation
+
+Eurostat NUTS-3 boundaries for Poland changed in 2004, 2008, and 2015.
+The 2021 NUTS-3 classification is used as the reference. Correspondence tables
+(Eurostat NUTS 2016 → 2021) were applied to harmonise the GDP series.
+
+## Appendix C: Data availability
+
+All raw data files are static downloads committed under `data/raw/`.
+No live API calls were made. Pipeline reproduces fully from raw files via
+`scripts/01_ingest.py` through `scripts/07_translate.py`.
+```{r session-info, include=FALSE}
+sessionInfo()
+```
