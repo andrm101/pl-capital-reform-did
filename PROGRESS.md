@@ -47,7 +47,7 @@ Quantify the socioeconomic effects of Poland's 1999 administrative reform on the
 | 09 Panel VAR | `scripts/09_pvar_forecast.py` | ✅ DONE | `pvar_forecasts.parquet` | MG-VAR, 372/377 cities fitted, 8 fan charts, 3 paths |
 | 09b ARIMA | `scripts/09b_arima_unemp.py` | ✅ DONE | `arima_unemployment_forecast.parquet` | Annual ARIMA (monthly CSV covers wrong geo level — see note) |
 | run_r_stages | `scripts/run_r_stages.py` | ✅ DONE | orchestrator | --force to re-run, --stages to select |
-| 13 Innovation ROI | `scripts/r/13_innovation_roi.R` | ✅ PASS | `pvar_forecasts.parquet` (innovation_hub path populated; value_pessimistic/value_optimistic three-estimate bracket) | Backported from RO-Administrative-Reform's Stage 13; Estimate B uses a flat T3 multiplier pending Poland-specific MegaCampus overlay; R execution deferred to an R-installed environment as of this commit, logic verified via Python replica |
+| 13 Innovation ROI | `scripts/r/13_innovation_roi.R` | ✅ PASS | `pvar_forecasts.parquet` (innovation_hub path populated; value_pessimistic/value_optimistic three-estimate bracket) | Backported from RO-Administrative-Reform's Stage 13; Estimate B uses a flat T3 multiplier pending Poland-specific MegaCampus overlay; ran successfully 2026-09-25 (conda env r-dirichlet), zero bracket-invariant violations on real output; export_to_json.py re-run, forecasts.json confirmed carrying valuePessimistic/valueOptimistic; dashboard toggle-enable logic verified against real JSON (live browser check still open -- broken local streamlit/starlette install, unrelated) |
 
 ---
 
