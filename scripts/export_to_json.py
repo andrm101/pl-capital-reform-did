@@ -130,6 +130,10 @@ def export_forecasts() -> None:
                     "hi80":  _safe(r["hi80"]),
                     "lo95":  _safe(r["lo95"]),
                     "hi95":  _safe(r["hi95"]),
+                    # Stage 13 three-estimate bracket bounds; only populated on
+                    # innovation_hub/ln_population rows, null elsewhere.
+                    "valuePessimistic": _safe(r["value_pessimistic"]) if "value_pessimistic" in r else None,
+                    "valueOptimistic":  _safe(r["value_optimistic"]) if "value_optimistic" in r else None,
                 }
                 for _, r in sub.iterrows()
             ]

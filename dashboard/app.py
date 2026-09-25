@@ -265,16 +265,25 @@ def tab_forecasts() -> None:
     var_fc  = city_fc.get(selected_var, {})
 
     show_cf = st.checkbox("Show counterfactual path", value=True)
+    innovation_available = "innovation_hub" in var_fc and any(
+        r["value"] is not None for r in var_fc.get("innovation_hub", [])
+    )
+    show_hub = st.checkbox(
+        "Show Innovation Hub scenario", value=False, disabled=not innovation_available
+    )
 
     fig, ax = plt.subplots(figsize=(10, 4.5))
 
     for path_key, color, label, ls in [
-        ("status_quo",    BLUE,  "Status quo", "-"),
+        ("status_quo",    BLUE,   "Status quo", "-"),
         ("counterfactual", GREEN, "Counterfactual (no reform)", "--"),
+        ("innovation_hub", YELLOW, "Innovation hub", ":"),
     ]:
         if path_key not in var_fc:
             continue
         if path_key == "counterfactual" and not show_cf:
+            continue
+        if path_key == "innovation_hub" and not show_hub:
             continue
 
         rows = var_fc[path_key]
@@ -306,7 +315,14 @@ def tab_forecasts() -> None:
     st.pyplot(fig)
     plt.close(fig)
 
-    st.caption("🔒 Innovation Hub scenario locked — available after Stage 13.")
+    if innovation_available:
+        st.caption(
+            "Innovation Hub scenario (Stage 13): three-estimate bracket "
+            "(pessimistic/central/optimistic) is available in the underlying "
+            "data; the chart currently shows the central estimate only."
+        )
+    else:
+        st.caption("🔒 Innovation Hub scenario locked — available after Stage 13.")
 
 
 # ── Tab 4: LP IRFs ────────────────────────────────────────────────────────────

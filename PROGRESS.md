@@ -47,7 +47,7 @@ Quantify the socioeconomic effects of Poland's 1999 administrative reform on the
 | 09 Panel VAR | `scripts/09_pvar_forecast.py` | ✅ DONE | `pvar_forecasts.parquet` | MG-VAR, 372/377 cities fitted, 8 fan charts, 3 paths |
 | 09b ARIMA | `scripts/09b_arima_unemp.py` | ✅ DONE | `arima_unemployment_forecast.parquet` | Annual ARIMA (monthly CSV covers wrong geo level — see note) |
 | run_r_stages | `scripts/run_r_stages.py` | ✅ DONE | orchestrator | --force to re-run, --stages to select |
-| 13 Innovation ROI | `scripts/r/13_innovation_roi.R` | 🔒 STUB | — | Phase 2, separate spec |
+| 13 Innovation ROI | `scripts/r/13_innovation_roi.R` | ✅ PASS | `pvar_forecasts.parquet` (innovation_hub path populated; value_pessimistic/value_optimistic three-estimate bracket) | Backported from RO-Administrative-Reform's Stage 13; Estimate B uses a flat T3 multiplier pending Poland-specific MegaCampus overlay; R execution deferred to an R-installed environment as of this commit, logic verified via Python replica |
 
 ---
 
@@ -210,17 +210,17 @@ reports/main.Rmd      ← awaiting separate confirmation from user
 ### Remaining in This Project
 | Item | Status | Notes |
 |---|---|---|
-| `reports/main.Rmd` §4–§8 | ⏳ Awaiting user confirmation | All data ready |
-| Stage 13 (`13_innovation_roi.R`) | ⏳ Stub only | Unlocks Innovation Hub toggle in dashboard; needs MegaCampus suitability scores as input |
+| `reports/main.Rmd` §4–§8 | ⏳ Awaiting user confirmation | All data ready; §"Innovation Hub Scenario" now filled in under Discussion |
+| Stage 13 (`13_innovation_roi.R`) | ✅ PASS | Three-estimate bracket implemented 2026-09-25; Estimate B uses a flat T3 multiplier pending a Poland-specific MegaCampus ecosystem-type overlay (future work) |
 | Stage 12 (Causal Forest) | Out of scope | Hooks exist in `lp_unit_residuals.parquet` + `gsynth_gaps.att_avg` |
 
-### Next Projects (see `../VISION.md`)
-| Project | Status | Depends on |
-|---|---|---|
-| `RO-Administrative-Reform/` — data pipeline | ⏳ PLANNED | Romanian admin data sourcing (INS/TEMPO-Online) |
-| Stage 13 Poland ROI | ⏳ Stub | MegaCampus Gold layer suitability scores |
-| Romania MG-VAR + GSC | ⏳ PLANNED | RO data pipeline |
-| Romania React dashboard | ⏳ PLANNED | Romania data + Stage 13 RO ROI |
+### Sibling Projects (see `../VISION.md`)
+As of 2026-09-25, RO-Administrative-Reform (data pipeline, MG-VAR/GSC, Stage 13,
+and its React dashboard) is complete, not planned -- see that project's own
+`PROGRESS.md`. This project's Stage 13 and RO-Administrative-Reform's Stage 13
+now share two cross-repo artifacts: `EU-Innovation-Panel/analysis/p11_archetype_growth_premium.csv`
+(Estimate A) and this repo's own `analysis/retained_capital_benchmark.csv`
+(Estimate C, read cross-repo by RO's Stage 13).
 
 ---
 

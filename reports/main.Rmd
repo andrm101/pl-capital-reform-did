@@ -181,7 +181,35 @@ if (file.exists(rob_path)) {
 
 # Discussion and Policy Implications
 
-[Populated after results are available. To include:]
+## Innovation Hub Scenario (Stage 13)
+
+Beyond the observed reform-cost estimates above, Stage 13 asks a forward-looking
+question: could a targeted deep-tech investment offset a demoted city's ongoing
+population decline? We bracket the plausible annual ln-population uplift across
+three independent estimates:
+
+- **Estimate A** (archetype growth premium): a cross-sectional regression of
+  EU-Innovation-Panel regional GDP growth on archetype membership (non-causal
+  association, not a causal effect).
+- **Estimate B** (Moretti literature multipliers): local-multiplier effects from
+  Moretti (2010), applied here as a flat advanced-manufacturing-tier rate pending
+  a Poland-specific ecosystem-type overlay (future work — see
+  `docs/superpowers/plans/2026-09-25-stage13-innovation-roi.md`).
+- **Estimate C** (retained-capital benchmark): the observed 1999-2023 growth rate
+  of Krakow, Wroclaw, and Gdansk — cities that retained or gained capital status —
+  as an empirical optimistic ceiling.
+
+The resulting pessimistic/central/optimistic bracket is available as the
+`innovation_hub` path in `pvar_forecasts.parquet` (`value_pessimistic`, `value`,
+`value_optimistic` columns) and rendered in the Streamlit dashboard's Forecasts
+tab, ramping in from 2024 over a 5-year horizon. Estimate B currently dominates
+the bracket for most cities (a flat, literature-anchored rate), so the pessimistic
+and optimistic bounds mainly reflect how much lower/higher the archetype-premium
+and retained-capital benchmarks run relative to it — not yet a city-specific
+ecosystem-type differentiation, which requires the same MegaCampus Tier-1 overlay
+RO-Administrative-Reform already has for Romanian counties.
+
+[Remainder populated after results are available. To include:]
 
 - Magnitude of population and firm-density effects stated in one sentence.
 - Comparison with theoretical priors (agglomeration loss, public-sector employment contraction).
