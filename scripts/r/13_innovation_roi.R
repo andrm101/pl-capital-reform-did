@@ -65,6 +65,15 @@ MORETTI_MULTIPLIERS <- c(
   T6 = 0.014, T7 = 0.015, T8 = 0.018
 )
 
+get_max_multiplier <- function(tier1_types_str) {
+  if (is.na(tier1_types_str) || tier1_types_str == "") return(NA_real_)
+  types <- str_split(tier1_types_str, "\\|")[[1]]
+  mults <- MORETTI_MULTIPLIERS[types]
+  mults <- mults[!is.na(mults)]
+  if (length(mults) == 0) return(NA_real_)
+  max(mults)
+}
+
 # ── Load inputs ──────────────────────────────────────────────────────────────
 fcst_raw <- read_parquet(FCST_PATH)
 fcst <- fcst_raw |> filter(path != "innovation_hub")
@@ -82,31 +91,50 @@ estimate_c_annual <- read_csv(ESTIMATE_C_PATH, show_col_types = FALSE) |>
   pull(annual_growth_ln)
 stopifnot(length(estimate_c_annual) == 1, !is.na(estimate_c_annual))
 
-# Poland doesn't currently carry an archetype_id or MegaCampus Tier-1 type per
-# city in this repo's processed data; without a per-city ecosystem type,
-# Estimate B falls back to a flat central multiplier (advanced-manufacturing
-# tier, T3) for every demoted city. A Poland-specific MegaCampus overlay
-# (mirroring RO-Administrative-Reform's build_nuts3_suitability.py) is future
-# work -- see docs/superpowers/plans/2026-09-25-stage13-innovation-roi.md
-# Task 6 Step 3 / VISION.md "Next concrete actions".
-estimate_b_annual <- unname(MORETTI_MULTIPLIERS["T3"])
+# Estimate B: per-city MegaCampus Tier-1 multiplier where available, falling
+# back to the flat T3 (advanced-manufacturing) rate for any city with no
+# Tier-1 type above the 0.70 gate. See
+# docs/superpowers/specs/2026-09-25-poland-megacampus-overlay-design.md and
+# scripts/build_powiat_suitability.py (run that script first if this file
+# doesn't exist yet).
+SUITABILITY_PATH <- file.path(DATA_PROC, "pl_powiat_suitability.parquet")
+check_sibling_path(SUITABILITY_PATH, "Poland MegaCampus overlay")
+
+city_suitability <- read_parquet(SUITABILITY_PATH) |>
+  select(city_en, tier1_gate, tier1_types) |>
+  mutate(
+    estimate_b_city = sapply(tier1_types, get_max_multiplier),
+    estimate_b_city = if_else(!tier1_gate | is.na(estimate_b_city),
+                               unname(MORETTI_MULTIPLIERS["T3"]),
+                               estimate_b_city)
+  )
+
+cat("Per-city Estimate B:\n")
+print(city_suitability |> select(city_en, tier1_types, estimate_b_city))
+
 central_archetype_premium <- estimate_a |>
   summarise(mean_a = mean(estimate_a_annual, na.rm = TRUE)) |>
   pull(mean_a)
 
-bracket_pessimistic <- min(central_archetype_premium, estimate_b_annual, estimate_c_annual, na.rm = TRUE)
-bracket_central      <- estimate_b_annual
-bracket_optimistic   <- max(central_archetype_premium, estimate_b_annual, estimate_c_annual, na.rm = TRUE)
+bracket_by_city <- city_suitability |>
+  mutate(
+    estimate_a_annual = central_archetype_premium,
+    estimate_c_annual = estimate_c_annual,
+    bracket_pessimistic = pmin(estimate_a_annual, estimate_b_city, estimate_c_annual, na.rm = TRUE),
+    bracket_central      = estimate_b_city,
+    bracket_optimistic   = pmax(estimate_a_annual, estimate_b_city, estimate_c_annual, na.rm = TRUE)
+  ) |>
+  select(city_en, bracket_pessimistic, bracket_central, bracket_optimistic)
 
 cat("Estimate A (mean archetype premium):", central_archetype_premium, "\n")
-cat("Estimate B (Moretti, T3 flat):", estimate_b_annual, "\n")
 cat("Estimate C (retained-capital benchmark):", estimate_c_annual, "\n")
-cat("Bracket: pessimistic =", bracket_pessimistic,
-    ", central =", bracket_central,
-    ", optimistic =", bracket_optimistic, "\n")
+cat("Bracket by city:\n")
+print(bracket_by_city)
 
 # ── Build innovation_hub path ────────────────────────────────────────────────
-counterfactual_rows <- fcst |> filter(path == "counterfactual")
+counterfactual_rows <- fcst |>
+  filter(path == "counterfactual") |>
+  left_join(bracket_by_city, by = "city_en")
 
 compute_ramp <- function(bracket_bound, year) {
   case_when(
@@ -144,7 +172,8 @@ innovation_rows <- counterfactual_rows |>
     hi95 = if_else(variable == "ln_population", hi95 + abs(hi95 - value_orig) * 0.05, hi95),
     path = "innovation_hub"
   ) |>
-  select(-ramp_factor, -ramp_factor_pessimistic, -ramp_factor_optimistic, -value_orig)
+  select(-ramp_factor, -ramp_factor_pessimistic, -ramp_factor_optimistic, -value_orig,
+         -bracket_pessimistic, -bracket_central, -bracket_optimistic)
 
 fcst_out <- bind_rows(fcst, innovation_rows) |>
   arrange(across(any_of(c("teryt_powiat", "city_en"))), variable, path, year)
