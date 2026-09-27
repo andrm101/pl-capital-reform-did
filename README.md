@@ -6,6 +6,22 @@
 
 This is the **causal baseline** of a three-project research programme: Poland's estimated reform cost and MG-VAR dynamics are transferred as structural priors to a parallel [RO-Administrative-Reform](https://github.com/andrm101/ro-administrative-reform) analysis, and its powiat-level suitability scoring links into [EU-MegaCampus-Siting](https://github.com/andrm101/eu-megacampus-siting).
 
+📖 **[Full abstract and 6-estimator identification strategy → project Wiki](https://github.com/andrm101/pl-capital-reform-did/wiki)**
+
+---
+
+## Results at a glance
+
+<p align="center">
+  <img src="figures/f04_eventstudy_ln_population.png" width="48%" alt="TWFE event study, ln(population)" />
+  <img src="figures/f09_sdid_trend.png" width="48%" alt="Synthetic DiD treated vs control trend" />
+</p>
+
+<p align="center">
+  <img src="figures/f05_scm_radom.png" width="48%" alt="Synthetic control fit, Radom" />
+  <img src="figures/f08_pvar_irf.png" width="48%" alt="Mixed-group Panel VAR impulse response" />
+</p>
+
 ---
 
 ## Key findings
