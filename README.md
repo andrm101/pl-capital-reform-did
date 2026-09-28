@@ -1,4 +1,6 @@
-# PL-Capital-Reform-DiD
+<p align="center">
+  <img src="assets/brand-banner.svg" alt="PL-Capital-Reform-DiD" width="100%">
+</p>
 
 ![Status](https://img.shields.io/badge/status-complete-brightgreen) ![R](https://img.shields.io/badge/R-4.x-blue) ![Framing](https://img.shields.io/badge/framing-causal--DiD-success) ![Units](https://img.shields.io/badge/units-377%20cities-lightgrey)
 
@@ -8,7 +10,7 @@ This is the **causal baseline** of a three-project research programme: Poland's 
 
 📖 **[Full abstract and 6-estimator identification strategy → project Wiki](https://github.com/andrm101/pl-capital-reform-did/wiki)**
 
----
+<img src="assets/brand-divider.svg" alt="" width="100%">
 
 ## Results at a glance
 
@@ -22,7 +24,7 @@ This is the **causal baseline** of a three-project research programme: Poland's 
   <img src="figures/f08_pvar_irf.png" width="48%" alt="Mixed-group Panel VAR impulse response" />
 </p>
 
----
+<img src="assets/brand-divider.svg" alt="" width="100%">
 
 ## Key findings
 
@@ -45,7 +47,7 @@ Difference-in-Differences with multiple complementary estimators to triangulate 
 | Mixed-Group Panel VAR | 372/377 cities fitted, forward forecasts with fan charts |
 | ARIMA | Unemployment forecasting cross-check |
 
----
+<img src="assets/brand-divider.svg" alt="" width="100%">
 
 ## Architecture
 
@@ -74,19 +76,19 @@ flowchart TD
     Export --> Report["reports/main.Rmd"]
 ```
 
----
+<img src="assets/brand-divider.svg" alt="" width="100%">
 
 ## Statistical rigour
 
 > Findings are reported as treatment-effect estimates from a quasi-experimental causal design (DiD/SDiD/gsynth), not observational correlations — causal language is appropriate here given the identification strategy, per the project's own causal-inference contract. Effect sizes with standard errors are reported alongside significance throughout.
 
----
+<img src="assets/brand-divider.svg" alt="" width="100%">
 
 ## Status
 
 All estimation stages (01–11b, 09, 09b, 13) are complete; the dashboard is live with a JSON data contract export. Final report (`main.Rmd`) pending separate confirmation.
 
----
+<img src="assets/brand-divider.svg" alt="" width="100%">
 
 ## Running it
 

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="PL Capital Reform DiD. Causal impact of Poland's 1999 administrative reform">
+  <rect width="1280" height="320" fill="#081A2F"/>
+  <g stroke="#355C7D" stroke-opacity="0.22" stroke-width="1">
+    <path d="M0 80H1280M0 160H1280M0 240H1280"/>
+    <path d="M320 0V320M640 0V320M960 0V320"/>
+  </g>
+  <g fill="none" stroke="#14B8A6" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M900 240H1000V160H1100V80H1180V160H1280"/>
+  </g>
+  <g fill="#081A2F" stroke="#14B8A6" stroke-width="3">
+    <rect x="992" y="232" width="16" height="16"/>
+    <rect x="1092" y="152" width="16" height="16"/>
+  </g>
+  <rect x="1172" y="72" width="16" height="16" fill="#14B8A6"/>
+  <g transform="translate(60 100)">
+    <line x1="102.5" y1="104.9" x2="67.3" y2="92.1" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="99.2" y1="18.4" x2="69.2" y2="52.4" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="99.2" y1="18.4" x2="52.3" y2="18.2" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="69.2" y1="52.4" x2="67.3" y2="92.1" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="69.2" y1="52.4" x2="52.3" y2="18.2" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="29.2" y1="54.5" x2="26.7" y2="107.5" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="12.5" y1="18.6" x2="52.3" y2="18.2" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="67.3" y1="92.1" x2="26.7" y2="107.5" stroke="#355C7D" stroke-width="2.5"/>
+    <line x1="102.5" y1="104.9" x2="69.2" y2="52.4" stroke="#14B8A6" stroke-width="4"/>
+    <line x1="69.2" y1="52.4" x2="29.2" y2="54.5" stroke="#14B8A6" stroke-width="4"/>
+    <line x1="29.2" y1="54.5" x2="12.5" y2="18.6" stroke="#14B8A6" stroke-width="4"/>
+    <rect x="94.5" y="96.9" width="16" height="16" fill="#14B8A6"/>
+    <rect x="93.2" y="12.4" width="12" height="12" fill="#081A2F" stroke="#F4F7FA" stroke-width="2.5"/>
+    <rect x="61.2" y="44.4" width="16" height="16" fill="#14B8A6"/>
+    <rect x="21.2" y="46.5" width="16" height="16" fill="#14B8A6"/>
+    <rect x="4.5" y="10.6" width="16" height="16" fill="#14B8A6"/>
+    <rect x="61.3" y="86.1" width="12" height="12" fill="#081A2F" stroke="#F4F7FA" stroke-width="2.5"/>
+    <rect x="20.7" y="101.5" width="12" height="12" fill="#081A2F" stroke="#F4F7FA" stroke-width="2.5"/>
+    <rect x="46.3" y="12.2" width="12" height="12" fill="#081A2F" stroke="#F4F7FA" stroke-width="2.5"/>
+  </g>
+  <text x="220" y="140" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="56" font-weight="700" letter-spacing="-1.5" fill="#F4F7FA">PL Capital Reform DiD</text>
+  <text x="222" y="182" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#14B8A6">Causal impact of Poland's 1999 administrative reform</text>
+  <text x="222" y="222" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="400" fill="#F4F7FA" fill-opacity="0.8">31 demoted cities · 6 estimators · synthetic DiD ATT −0.045</text>
+  <text x="222" y="258" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#F4F7FA" fill-opacity="0.55">R · Python · Synthetic DiD</text>
+</svg>
