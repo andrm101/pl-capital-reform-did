@@ -1,0 +1,22 @@
+/* motion.css — shared look of the code-drawn explainers (navy / teal brand). */
+:root { --navy: #081A2F; --navy2: #0d2440; --grid: #355C7D; --teal: #14B8A6; --ink: #F4F7FA;
+        --muted: #7d8ea3; --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #9085e9;
+        --neg: #e66767; --pos: #3987e5; }
+html, body { margin: 0; background: var(--navy); }
+#stage { position: relative; width: 1280px; height: 720px; overflow: hidden; background: var(--navy);
+         font-family: Inter, "Segoe UI", "DejaVu Sans", Helvetica, Arial, sans-serif; color: var(--ink); }
+#stage svg { position: absolute; inset: 0; }
+.txt { position: absolute; left: 64px; top: 150px; width: 420px; opacity: 0; }
+.kicker { color: var(--teal); font-size: 15px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+.head { font-size: 38px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.12; margin: 14px 0 18px; }
+.body { font-size: 21px; line-height: 1.45; color: rgba(244,247,250,.82); }
+.body b { color: var(--ink); }
+.big { position: absolute; opacity: 0; font-weight: 700; letter-spacing: -2px; }
+.card { position: absolute; width: 330px; padding: 22px 24px; border-radius: 14px; background: var(--navy2);
+        border: 1px solid rgba(53,92,125,.6); opacity: 0; }
+.card .k { color: var(--teal); font-size: 14px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.card .v { font-size: 44px; font-weight: 700; margin: 10px 0 6px; letter-spacing: -1px; }
+.card .d { font-size: 17px; line-height: 1.4; color: rgba(244,247,250,.8); }
+.legend { position: absolute; display: flex; gap: 18px; font-size: 16px; color: rgba(244,247,250,.85); opacity: 0; }
+.legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 7px; vertical-align: -2px; }
+.src { position: absolute; left: 64px; bottom: 26px; font-size: 13px; color: var(--muted); }

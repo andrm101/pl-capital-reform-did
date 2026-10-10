@@ -10,6 +10,12 @@ This is the **causal baseline** of a three-project research programme: Poland's 
 
 📖 **[Full abstract and 6-estimator identification strategy → project Wiki](https://github.com/andrm101/pl-capital-reform-did/wiki)**
 
+## The study in 64 seconds
+
+[![What happens to a city that loses its capital status? Animated impulse response](docs/media/pl-capital-explainer-preview.gif)](docs/media/pl-capital-explainer.mp4)
+
+[Watch the full explainer (MP4, 64 s)](docs/media/pl-capital-explainer.mp4). It covers the design, Radom against its synthetic twin, when the effect arrives, five estimators and the city-by-city results. The video is drawn in code from the project's own outputs (`assets/motion/`).
+
 <img src="assets/brand-divider.svg" alt="" width="100%">
 
 ## Results at a glance
